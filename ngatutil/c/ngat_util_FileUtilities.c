@@ -1,12 +1,12 @@
-/* ngat_util_FileUtilites.c -*- mode: Fundamental;-*-
-** implementation of Java Class ngat.util.FileUtilites native interfaces
-** $Header: /space/home/eng/cjm/cvs/ngatutil/c/ngat_util_FileUtilities.c,v 1.1 2001-07-31 10:00:58 cjm Exp $
+/* ngat_util_FileUtilities.c -*- mode: Fundamental;-*-
+** implementation of Java Class ngat.util.FileUtilities native interfaces
+** $Header: /space/home/eng/cjm/cvs/ngatutil/c/ngat_util_FileUtilities.c,v 1.2 2001-07-31 10:19:27 cjm Exp $
 */
 /**
- * ngat_util_FileUtilites.c contains all the native C routines corresponding to native methods in the Java
- * class ngat.util.FileUtilites.
+ * ngat_util_FileUtilities.c contains all the native C routines corresponding to native methods in the Java
+ * class ngat.util.FileUtilities.
  * @author Chris Mottram LJMU
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 /**
  * This hash define is needed before including source files give us POSIX.4/IEEE1003.1b-1993 prototypes.
@@ -43,7 +43,7 @@
 #include <jni.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "ngat_util_FileUtilites.h"
+#include "ngat_util_FileUtilities.h"
 
 /* --------------------------------------------------------- */
 /* hash defines */
@@ -72,28 +72,28 @@
 /**
  * Revision Control System identifier.
  */
-static char rcsid[] = "$Id: ngat_util_FileUtilities.c,v 1.1 2001-07-31 10:00:58 cjm Exp $";
+static char rcsid[] = "$Id: ngat_util_FileUtilities.c,v 1.2 2001-07-31 10:19:27 cjm Exp $";
 /**
  * Error string that holds any generated error messages.
  * @see #FILE_UTILITES_ERROR_STRING_LENGTH
  */
-static char File_Utilites_Error_String[FILE_UTILITES_ERROR_STRING_LENGTH] = "";
+static char File_Utilities_Error_String[FILE_UTILITES_ERROR_STRING_LENGTH] = "";
 
 /* --------------------------------------------------------- */
 /* internal routines prototypes */
 /* --------------------------------------------------------- */
-static void FileUtilites_Throw_Exception_String(JNIEnv *env,char *function_name,int error_number,char *error_string);
+static void FileUtilities_Throw_Exception_String(JNIEnv *env,char *function_name,int error_number,char *error_string);
 /* --------------------------------------------------------- */
 /* external routines */
 /* --------------------------------------------------------- */
 /**
- * Class:     ngat_util_FileUtilites<br>
+ * Class:     ngat_util_FileUtilities<br>
  * Method:    readlink<br>
  * Signature: (Ljava/lang/String;I)Ljava/lang/String;<br>
  * Java Native Interface routine to read what a symbolic links points to (contains).
  * Uses readlink. readlink conforms to X/OPEN,4.4BSD.
  */
-JNIEXPORT jstring JNICALL Java_ngat_util_FileUtilites_readlink(JNIEnv *env, jclass cls, 
+JNIEXPORT jstring JNICALL Java_ngat_util_FileUtilities_readlink(JNIEnv *env, jclass cls, 
 	jstring link_filename,jint buffer_length)
 {
 	jstring return_string = NULL;
@@ -110,8 +110,8 @@ JNIEXPORT jstring JNICALL Java_ngat_util_FileUtilites_readlink(JNIEnv *env, jcla
 	{
 		if(link_filename != NULL)
 			(*env)->ReleaseStringUTFChars(env,link_filename,clink_filename);
-		sprintf(File_Utilites_Error_String,"malloc(%ld) returned NULL.",buffer_length*sizeof(char));
-		FileUtilites_Throw_Exception_String(env,"readlink",0,File_Utilites_Error_String);
+		sprintf(File_Utilities_Error_String,"malloc(%ld) returned NULL.",buffer_length*sizeof(char));
+		FileUtilities_Throw_Exception_String(env,"readlink",0,File_Utilities_Error_String);
 		return (jstring)NULL;
 	}
 /* read link contents of filename clink_filename into buff */
@@ -123,8 +123,8 @@ JNIEXPORT jstring JNICALL Java_ngat_util_FileUtilites_readlink(JNIEnv *env, jcla
 			(*env)->ReleaseStringUTFChars(env,link_filename,clink_filename);
 		if(buff != NULL)
 			free(buff);
-		sprintf(File_Utilites_Error_String,"readlink(%s,%d) failed.",clink_filename,(int)buffer_length);
-		FileUtilites_Throw_Exception_String(env,"readlink",readlink_errno,File_Utilites_Error_String);
+		sprintf(File_Utilities_Error_String,"readlink(%s,%d) failed.",clink_filename,(int)buffer_length);
+		FileUtilities_Throw_Exception_String(env,"readlink",readlink_errno,File_Utilities_Error_String);
 		return (jstring)NULL;
 	}
 /* retval is the number of bytes in buff. Ensure buffer was not filled. */
@@ -134,8 +134,8 @@ JNIEXPORT jstring JNICALL Java_ngat_util_FileUtilites_readlink(JNIEnv *env, jcla
 			(*env)->ReleaseStringUTFChars(env,link_filename,clink_filename);
 		if(buff != NULL)
 			free(buff);
-		sprintf(File_Utilites_Error_String,"readlink(%s,%d):buffer full.",clink_filename,(int)buffer_length);
-		FileUtilites_Throw_Exception_String(env,"readlink",0,File_Utilites_Error_String);
+		sprintf(File_Utilities_Error_String,"readlink(%s,%d):buffer full.",clink_filename,(int)buffer_length);
+		FileUtilities_Throw_Exception_String(env,"readlink",0,File_Utilities_Error_String);
 		return (jstring)NULL;
 	}
 /* buff is NOT NULL terminated by readlink. Terminate. */
@@ -153,13 +153,13 @@ JNIEXPORT jstring JNICALL Java_ngat_util_FileUtilites_readlink(JNIEnv *env, jcla
 }
 
 /**
- * Class:     ngat_util_FileUtilites<br>
+ * Class:     ngat_util_FileUtilities<br>
  * Method:    symlink<br>
  * Signature: (Ljava/lang/String;Ljava/lang/String;)V<br>
  * Java Native Interface routine to create a symbolic link.
  * Uses symlink. symlink conforms to SVr4, SVID, POSIX, BSD  4.3.
  */
-JNIEXPORT void JNICALL Java_ngat_util_FileUtilites_symlink(JNIEnv *env,jclass cls,
+JNIEXPORT void JNICALL Java_ngat_util_FileUtilities_symlink(JNIEnv *env,jclass cls,
 	jstring link_contents,jstring link_filename)
 {	
 	const char *clink_filename = NULL;
@@ -181,8 +181,8 @@ JNIEXPORT void JNICALL Java_ngat_util_FileUtilites_symlink(JNIEnv *env,jclass cl
 			(*env)->ReleaseStringUTFChars(env,link_filename,clink_filename);
 		if(link_contents != NULL)
 			(*env)->ReleaseStringUTFChars(env,link_contents,clink_contents);
-		sprintf(File_Utilites_Error_String,"symlink(%s,%s) failed.",clink_contents,clink_filename);
-		FileUtilites_Throw_Exception_String(env,"symlink",symlink_errno,File_Utilites_Error_String);
+		sprintf(File_Utilities_Error_String,"symlink(%s,%s) failed.",clink_contents,clink_filename);
+		FileUtilities_Throw_Exception_String(env,"symlink",symlink_errno,File_Utilities_Error_String);
 		return;
 	}
 /* free link_filename */
@@ -194,14 +194,14 @@ JNIEXPORT void JNICALL Java_ngat_util_FileUtilites_symlink(JNIEnv *env,jclass cl
 }
 
 /**
- * Class:     ngat_util_FileUtilites<br>
+ * Class:     ngat_util_FileUtilities<br>
  * Method:    symlink_lstat_exists<br>
  * Signature: (Ljava/lang/String;)Z<br>
  * Java Native Interface routine to test whether a symbolic link exists.
  * Uses lstat, and the macro S_ISLNK, which tests whether st_mode has the S_IFLNK bit set.
  * lstat conforms to 4.3BSD and SVr4.
  */
-JNIEXPORT jboolean JNICALL Java_ngat_util_FileUtilites_symlink_1lstat_1exists(JNIEnv *env,jclass cls,
+JNIEXPORT jboolean JNICALL Java_ngat_util_FileUtilities_symlink_1lstat_1exists(JNIEnv *env,jclass cls,
 	jstring link_filename)
 {
 	struct stat link_stat;
@@ -235,14 +235,14 @@ JNIEXPORT jboolean JNICALL Java_ngat_util_FileUtilites_symlink_1lstat_1exists(JN
 /* internal routines */
 /* --------------------------------------------------------- */
 /**
- * This routine throws an exception of class ngat/util/FileUtilitesNativeException. This is used to report
+ * This routine throws an exception of class ngat/util/FileUtilitiesNativeException. This is used to report
  * file utility error messages back to the Java layer.
  * @param env The JNI environment pointer.
  * @param function_name The name of the function in which this exception is being generated for.
  * @param error_number An error number to pass to the constructor of the exception, usually from errno.
  * @param error_string The string to pass to the constructor of the exception.
  */
-static void FileUtilites_Throw_Exception_String(JNIEnv *env,char *function_name,int error_number,char *error_string)
+static void FileUtilities_Throw_Exception_String(JNIEnv *env,char *function_name,int error_number,char *error_string)
 {
 	jclass exception_class = NULL;
 	jobject exception_instance = NULL;
@@ -251,20 +251,20 @@ static void FileUtilites_Throw_Exception_String(JNIEnv *env,char *function_name,
 	jmethodID mid;
 	int retval;
 
-	exception_class = (*env)->FindClass(env,"ngat/util/FileUtilitesNativeException");
+	exception_class = (*env)->FindClass(env,"ngat/util/FileUtilitiesNativeException");
 	if(exception_class == NULL)
 	{
-		fprintf(stderr,"FileUtilites_Throw_Exception_String:FindClass failed:%s:(%d) %s\n",function_name,
+		fprintf(stderr,"FileUtilities_Throw_Exception_String:FindClass failed:%s:(%d) %s\n",function_name,
 			error_number,error_string);
 		return;
 	}
-/* get FileUtilitesNativeException constructor */
+/* get FileUtilitiesNativeException constructor */
 	mid = (*env)->GetMethodID(env,exception_class,"<init>","(Ljava/lang/String;ILjava/lang/String;)V");
 	if(mid == 0)
 	{
 		/* One of the following exceptions has been thrown:
 		** NoSuchMethodError, ExceptionInInitializerError, OutOfMemoryError */
-		fprintf(stderr,"FileUtilites_Throw_Exception_String:GetMethodID failed:%s:(%d) %s\n",
+		fprintf(stderr,"FileUtilities_Throw_Exception_String:GetMethodID failed:%s:(%d) %s\n",
 			function_name,error_number,error_string);
 		return;
 	}
@@ -278,7 +278,7 @@ static void FileUtilites_Throw_Exception_String(JNIEnv *env,char *function_name,
 	{
 		/* One of the following exceptions has been thrown:
 		** InstantiationException, OutOfMemoryError */
-		fprintf(stderr,"FileUtilites_Throw_Exception_String:NewObject failed %s:(%d) %s\n",
+		fprintf(stderr,"FileUtilities_Throw_Exception_String:NewObject failed %s:(%d) %s\n",
 			function_name,error_number,error_string);
 		return;
 	}
@@ -286,13 +286,16 @@ static void FileUtilites_Throw_Exception_String(JNIEnv *env,char *function_name,
 	retval = (*env)->Throw(env,(jthrowable)exception_instance);
 	if(retval !=0)
 	{
-		fprintf(stderr,"FileUtilites_Throw_Exception_String:Throw failed %d:%s:(%d) %s\n",retval,
+		fprintf(stderr,"FileUtilities_Throw_Exception_String:Throw failed %d:%s:(%d) %s\n",retval,
 			function_name,error_number,error_string);
 	}
 }
 
 /*
 ** $Log: not supported by cvs2svn $
+** Revision 1.1  2001/07/31 10:00:58  cjm
+** Initial revision
+**
 ** Revision 1.1  2001/06/20 15:56:16  cjm
 ** Initial revision
 **
