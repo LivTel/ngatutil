@@ -1,4 +1,4 @@
-# $Header: /space/home/eng/cjm/cvs/ngatutil/c/Makefile,v 1.1 2001-06-20 15:56:30 cjm Exp $
+# $Header: /space/home/eng/cjm/cvs/ngatutil/c/Makefile,v 1.2 2001-07-31 10:20:14 cjm Exp $
 
 include			../../Makefile.common
 include			../../ngat/Makefile.common
@@ -11,12 +11,12 @@ DOCSDIR = $(NGAT_DOC_HOME)/cdocs/$(PACKAGEDIR)
 CFLAGS = -g $(CCHECKFLAG) -I$(INCDIR) -I$(JNIINCDIR) -I$(JNIMDINCDIR) -I$(CFITSIOINCDIR) -L$(LT_LIB_HOME)
 LINTFLAGS = -I$(INCDIR) -I$(JNIINCDIR) -I$(JNIMDINCDIR) -I$(CFITSIOINCDIR)
 DOCFLAGS = -static
-SRCS 		= 	ngat_util_FileUtilites.c
+SRCS 		= 	ngat_util_FileUtilities.c
 HEADERS		=	$(SRCS:%.c=%.h)
 OBJS		=	$(SRCS:%.c=%.o)
 DOCS 		= 	$(SRCS:%.c=$(DOCSDIR)/%.html)
 
-top: $(INCDIR)/ngat_util_FileUtilites.h shared docs
+top: $(INCDIR)/ngat_util_FileUtilities.h shared docs
 
 shared: $(LT_LIB_HOME)/libngatutil.so
 
@@ -28,8 +28,8 @@ static: $(LT_LIB_HOME)/libngatutil.a
 $(LT_LIB_HOME)/libngatutil.a: $(OBJS)
 	ar rcv $@ $?
 
-$(INCDIR)/ngat_util_FileUtilites.h: $(LT_JAVALIB_HOME)/ngat_util.jar
-	$(JAVAH) -jni -d $(INCDIR) ngat.util.FileUtilites
+$(INCDIR)/ngat_util_FileUtilities.h: $(LT_JAVALIB_HOME)/ngat_util.jar
+	$(JAVAH) -jni -d $(INCDIR) ngat.util.FileUtilities
 	$(TOUCH) $@
 
 docs: $(DOCS)
@@ -63,23 +63,26 @@ backup: tidy
 
 #
 # $Log: not supported by cvs2svn $
+# Revision 1.1  2001/06/20 15:56:30  cjm
+# Initial revision
+#
 #
 
 # DO NOT DELETE
 
-ngat_util_FileUtilites.o: /usr/include/errno.h /usr/include/sys/errno.h
-ngat_util_FileUtilites.o: /usr/include/stdio.h
-ngat_util_FileUtilites.o: /usr/include/sys/feature_tests.h
-ngat_util_FileUtilites.o: /usr/include/sys/isa_defs.h
-ngat_util_FileUtilites.o: /usr/include/sys/va_list.h /usr/include/stdio_tag.h
-ngat_util_FileUtilites.o: /usr/include/stdio_impl.h /usr/include/stdlib.h
-ngat_util_FileUtilites.o: /usr/include/unistd.h /usr/include/sys/types.h
-ngat_util_FileUtilites.o: /usr/include/sys/machtypes.h
-ngat_util_FileUtilites.o: /usr/include/sys/int_types.h
-ngat_util_FileUtilites.o: /usr/include/sys/unistd.h
-ngat_util_FileUtilites.o: /usr/java1.2/include/jni.h /usr/include/stdarg.h
-ngat_util_FileUtilites.o: /usr/java1.2/include/solaris/jni_md.h
-ngat_util_FileUtilites.o: /usr/include/limits.h /usr/include/sys/int_limits.h
-ngat_util_FileUtilites.o: /usr/include/sys/stat.h
-ngat_util_FileUtilites.o: /usr/include/sys/time_std_impl.h
-ngat_util_FileUtilites.o: ../include/ngat_util_FileUtilites.h
+ngat_util_FileUtilities.o: /usr/include/errno.h /usr/include/sys/errno.h
+ngat_util_FileUtilities.o: /usr/include/stdio.h
+ngat_util_FileUtilities.o: /usr/include/sys/feature_tests.h
+ngat_util_FileUtilities.o: /usr/include/sys/isa_defs.h
+ngat_util_FileUtilities.o: /usr/include/sys/va_list.h /usr/include/stdio_tag.h
+ngat_util_FileUtilities.o: /usr/include/stdio_impl.h /usr/include/stdlib.h
+ngat_util_FileUtilities.o: /usr/include/unistd.h /usr/include/sys/types.h
+ngat_util_FileUtilities.o: /usr/include/sys/machtypes.h
+ngat_util_FileUtilities.o: /usr/include/sys/int_types.h
+ngat_util_FileUtilities.o: /usr/include/sys/unistd.h
+ngat_util_FileUtilities.o: /usr/java1.2/include/jni.h /usr/include/stdarg.h
+ngat_util_FileUtilities.o: /usr/java1.2/include/solaris/jni_md.h
+ngat_util_FileUtilities.o: /usr/include/limits.h /usr/include/sys/int_limits.h
+ngat_util_FileUtilities.o: /usr/include/sys/stat.h
+ngat_util_FileUtilities.o: /usr/include/sys/time_std_impl.h
+ngat_util_FileUtilities.o: ../include/ngat_util_FileUtilities.h
