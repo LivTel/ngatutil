@@ -1,13 +1,12 @@
-# $Header: /space/home/eng/cjm/cvs/ngatutil/c/Makefile,v 1.2 2001-07-31 10:20:14 cjm Exp $
+# $Header: /space/home/eng/cjm/cvs/ngatutil/c/Makefile,v 1.3 2003-03-11 12:04:33 cjm Exp $
 
 include			../../Makefile.common
-include			../../ngat/Makefile.common
 
 PACKAGEDIR = ngat/util
 PACKAGENAME = ngat.util
 
 INCDIR = ../include
-DOCSDIR = $(NGAT_DOC_HOME)/cdocs/$(PACKAGEDIR)
+DOCSDIR = $(LT_DOC_HOME)/ngat/cdocs/$(PACKAGEDIR)
 CFLAGS = -g $(CCHECKFLAG) -I$(INCDIR) -I$(JNIINCDIR) -I$(JNIMDINCDIR) -I$(CFITSIOINCDIR) -L$(LT_LIB_HOME)
 LINTFLAGS = -I$(INCDIR) -I$(JNIINCDIR) -I$(JNIMDINCDIR) -I$(CFITSIOINCDIR)
 DOCFLAGS = -static
@@ -63,6 +62,9 @@ backup: tidy
 
 #
 # $Log: not supported by cvs2svn $
+# Revision 1.2  2001/07/31 10:20:14  cjm
+# FileUtilites renamed to FileUtilities.
+#
 # Revision 1.1  2001/06/20 15:56:30  cjm
 # Initial revision
 #
