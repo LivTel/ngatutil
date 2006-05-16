@@ -1,12 +1,31 @@
+/*   
+    Copyright 2006, Astrophysics Research Institute, Liverpool John Moores University.
+
+    This file is part of NGATFITS.
+
+    NGATFITS is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    NGATFITS is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with NGATFITS; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 /* ngat_util_FileUtilities.c -*- mode: Fundamental;-*-
 ** implementation of Java Class ngat.util.FileUtilities native interfaces
-** $Header: /space/home/eng/cjm/cvs/ngatutil/c/ngat_util_FileUtilities.c,v 1.2 2001-07-31 10:19:27 cjm Exp $
+** $Header: /space/home/eng/cjm/cvs/ngatutil/c/ngat_util_FileUtilities.c,v 1.3 2006-05-16 18:56:57 cjm Exp $
 */
 /**
  * ngat_util_FileUtilities.c contains all the native C routines corresponding to native methods in the Java
  * class ngat.util.FileUtilities.
  * @author Chris Mottram LJMU
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 /**
  * This hash define is needed before including source files give us POSIX.4/IEEE1003.1b-1993 prototypes.
@@ -72,7 +91,7 @@
 /**
  * Revision Control System identifier.
  */
-static char rcsid[] = "$Id: ngat_util_FileUtilities.c,v 1.2 2001-07-31 10:19:27 cjm Exp $";
+static char rcsid[] = "$Id: ngat_util_FileUtilities.c,v 1.3 2006-05-16 18:56:57 cjm Exp $";
 /**
  * Error string that holds any generated error messages.
  * @see #FILE_UTILITES_ERROR_STRING_LENGTH
@@ -293,6 +312,9 @@ static void FileUtilities_Throw_Exception_String(JNIEnv *env,char *function_name
 
 /*
 ** $Log: not supported by cvs2svn $
+** Revision 1.2  2001/07/31 10:19:27  cjm
+** Renamed FileUtilites to FileUtilities.
+**
 ** Revision 1.1  2001/07/31 10:00:58  cjm
 ** Initial revision
 **
