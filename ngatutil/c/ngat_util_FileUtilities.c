@@ -19,13 +19,13 @@
 */
 /* ngat_util_FileUtilities.c -*- mode: Fundamental;-*-
 ** implementation of Java Class ngat.util.FileUtilities native interfaces
-** $Header: /space/home/eng/cjm/cvs/ngatutil/c/ngat_util_FileUtilities.c,v 1.3 2006-05-16 18:56:57 cjm Exp $
+** $Header: /space/home/eng/cjm/cvs/ngatutil/c/ngat_util_FileUtilities.c,v 1.4 2008-06-27 09:56:14 cjm Exp $
 */
 /**
  * ngat_util_FileUtilities.c contains all the native C routines corresponding to native methods in the Java
  * class ngat.util.FileUtilities.
  * @author Chris Mottram LJMU
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 /**
  * This hash define is needed before including source files give us POSIX.4/IEEE1003.1b-1993 prototypes.
@@ -91,7 +91,7 @@
 /**
  * Revision Control System identifier.
  */
-static char rcsid[] = "$Id: ngat_util_FileUtilities.c,v 1.3 2006-05-16 18:56:57 cjm Exp $";
+static char rcsid[] = "$Id: ngat_util_FileUtilities.c,v 1.4 2008-06-27 09:56:14 cjm Exp $";
 /**
  * Error string that holds any generated error messages.
  * @see #FILE_UTILITES_ERROR_STRING_LENGTH
@@ -129,7 +129,7 @@ JNIEXPORT jstring JNICALL Java_ngat_util_FileUtilities_readlink(JNIEnv *env, jcl
 	{
 		if(link_filename != NULL)
 			(*env)->ReleaseStringUTFChars(env,link_filename,clink_filename);
-		sprintf(File_Utilities_Error_String,"malloc(%ld) returned NULL.",buffer_length*sizeof(char));
+		sprintf(File_Utilities_Error_String,"malloc(%u) returned NULL.",buffer_length*sizeof(char));
 		FileUtilities_Throw_Exception_String(env,"readlink",0,File_Utilities_Error_String);
 		return (jstring)NULL;
 	}
@@ -312,6 +312,9 @@ static void FileUtilities_Throw_Exception_String(JNIEnv *env,char *function_name
 
 /*
 ** $Log: not supported by cvs2svn $
+** Revision 1.3  2006/05/16 18:56:57  cjm
+** gnuify: Added GNU General Public License.
+**
 ** Revision 1.2  2001/07/31 10:19:27  cjm
 ** Renamed FileUtilites to FileUtilities.
 **
