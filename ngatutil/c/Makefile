@@ -1,18 +1,22 @@
-# $Header: /space/home/eng/cjm/cvs/ngatutil/c/Makefile,v 1.4 2008-06-27 10:51:03 cjm Exp $
+# $Header: /space/home/eng/cjm/cvs/ngatutil/c/Makefile,v 1.5 2015-06-05 15:15:07 cjm Exp $
 
 include			../../Makefile.common
 
 PACKAGEDIR = ngat/util
 PACKAGENAME = ngat.util
 
-INCDIR = ../include
-DOCSDIR = $(LT_DOC_HOME)/ngat/cdocs/$(PACKAGEDIR)
-CFLAGS = -g $(CCHECKFLAG) -I$(INCDIR) -I$(JNIINCDIR) -I$(JNIMDINCDIR) -I$(CFITSIOINCDIR) -L$(LT_LIB_HOME)
-LINTFLAGS = -I$(INCDIR) -I$(JNIINCDIR) -I$(JNIMDINCDIR) -I$(CFITSIOINCDIR)
-DOCFLAGS = -static
+CNAME		= c
+NGAT_UTIL_HOME  = ngatutil
+BINDIR		= $(LT_BIN_HOME)/$(NGAT_UTIL_HOME)/$(CNAME)/$(HOSTTYPE)
+INCDIR 		= ../include
+DOCSDIR 	= $(LT_DOC_HOME)/ngat/cdocs/$(PACKAGEDIR)
+CFLAGS 		= -g $(CCHECKFLAG) $(SHARED_LIB_CFLAGS) -I$(INCDIR) -I$(JNIINCDIR) -I$(JNIMDINCDIR) \
+		-I$(CFITSIOINCDIR) -L$(LT_LIB_HOME)
+LINTFLAGS 	= -I$(INCDIR) -I$(JNIINCDIR) -I$(JNIMDINCDIR) -I$(CFITSIOINCDIR)
+DOCFLAGS 	= -static
 SRCS 		= 	ngat_util_FileUtilities.c
-HEADERS		=	$(SRCS:%.c=%.h)
-OBJS		=	$(SRCS:%.c=%.o)
+HEADERS		=	$(SRCS:%.c=$(INCDIR)/%.h)
+OBJS		=	$(SRCS:%.c=$(BINDIR)/%.o)
 DOCS 		= 	$(SRCS:%.c=$(DOCSDIR)/%.html)
 
 top: $(INCDIR)/ngat_util_FileUtilities.h shared docs
@@ -26,6 +30,9 @@ static: $(LT_LIB_HOME)/libngatutil.a
 
 $(LT_LIB_HOME)/libngatutil.a: $(OBJS)
 	ar rcv $@ $?
+
+$(BINDIR)/%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(INCDIR)/ngat_util_FileUtilities.h: $(LT_JAVALIB_HOME)/ngat_util.jar
 	$(JAVAH) -jni -d $(INCDIR) ngat.util.FileUtilities
@@ -62,6 +69,9 @@ backup: tidy
 
 #
 # $Log: not supported by cvs2svn $
+# Revision 1.4  2008/06/27 10:51:03  cjm
+# Added MAKEDEPENDFLAGS.
+#
 # Revision 1.3  2003/03/11 12:04:33  cjm
 # Fixed Makefile include problem.
 #
@@ -75,34 +85,23 @@ backup: tidy
 
 # DO NOT DELETE
 
-ngat_util_FileUtilities.o: /usr/include/errno.h /usr/include/features.h
-ngat_util_FileUtilities.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
-ngat_util_FileUtilities.o: /usr/include/bits/errno.h
-ngat_util_FileUtilities.o: /usr/include/linux/errno.h
-ngat_util_FileUtilities.o: /usr/include/asm/errno.h /usr/include/stdio.h
-ngat_util_FileUtilities.o: /usr/lib/gcc-lib/i386-redhat-linux/3.2.2/include/stddef.h
-ngat_util_FileUtilities.o: /usr/include/bits/types.h
-ngat_util_FileUtilities.o: /usr/include/bits/wordsize.h
-ngat_util_FileUtilities.o: /usr/include/bits/typesizes.h /usr/include/libio.h
-ngat_util_FileUtilities.o: /usr/include/_G_config.h /usr/include/wchar.h
-ngat_util_FileUtilities.o: /usr/include/bits/wchar.h /usr/include/gconv.h
-ngat_util_FileUtilities.o: /usr/lib/gcc-lib/i386-redhat-linux/3.2.2/include/stdarg.h
-ngat_util_FileUtilities.o: /usr/include/bits/stdio_lim.h
-ngat_util_FileUtilities.o: /usr/include/bits/sys_errlist.h
-ngat_util_FileUtilities.o: /usr/include/getopt.h /usr/include/stdlib.h
-ngat_util_FileUtilities.o: /usr/include/bits/waitflags.h
-ngat_util_FileUtilities.o: /usr/include/bits/waitstatus.h
-ngat_util_FileUtilities.o: /usr/include/endian.h /usr/include/bits/endian.h
-ngat_util_FileUtilities.o: /usr/include/sys/types.h /usr/include/time.h
-ngat_util_FileUtilities.o: /usr/include/sys/select.h
-ngat_util_FileUtilities.o: /usr/include/bits/select.h
-ngat_util_FileUtilities.o: /usr/include/bits/sigset.h
-ngat_util_FileUtilities.o: /usr/include/bits/time.h
-ngat_util_FileUtilities.o: /usr/include/sys/sysmacros.h /usr/include/alloca.h
-ngat_util_FileUtilities.o: /usr/include/unistd.h
-ngat_util_FileUtilities.o: /usr/include/bits/posix_opt.h
-ngat_util_FileUtilities.o: /usr/include/bits/confname.h
-ngat_util_FileUtilities.o: /usr/java/j2sdk1.4.2_06/include/jni.h
-ngat_util_FileUtilities.o: /usr/java/j2sdk1.4.2_06/include/linux/jni_md.h
-ngat_util_FileUtilities.o: /usr/include/sys/stat.h /usr/include/bits/stat.h
+ngat_util_FileUtilities.o: /usr/include/errno.h /usr/include/sys/errno.h
+ngat_util_FileUtilities.o: /usr/include/stdio.h /usr/include/iso/stdio_iso.h
+ngat_util_FileUtilities.o: /usr/include/sys/feature_tests.h
+ngat_util_FileUtilities.o: /usr/include/sys/isa_defs.h
+ngat_util_FileUtilities.o: /usr/include/sys/va_list.h
+ngat_util_FileUtilities.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h
+ngat_util_FileUtilities.o: /usr/include/stdlib.h
+ngat_util_FileUtilities.o: /usr/include/iso/stdlib_iso.h
+ngat_util_FileUtilities.o: /usr/include/unistd.h /usr/include/sys/types.h
+ngat_util_FileUtilities.o: /usr/include/sys/machtypes.h
+ngat_util_FileUtilities.o: /usr/include/sys/int_types.h
+ngat_util_FileUtilities.o: /usr/include/sys/unistd.h
+ngat_util_FileUtilities.o: /usr/local/j2sdk1.4.2_12/include/jni.h
+ngat_util_FileUtilities.o: /usr/include/stdarg.h
+ngat_util_FileUtilities.o: /usr/include/iso/stdarg_iso.h
+ngat_util_FileUtilities.o: /usr/local/j2sdk1.4.2_12/include/solaris/jni_md.h
+ngat_util_FileUtilities.o: /usr/include/sys/stat.h
+ngat_util_FileUtilities.o: /usr/include/sys/time_std_impl.h
+ngat_util_FileUtilities.o: /usr/include/sys/stat_impl.h
 ngat_util_FileUtilities.o: ../include/ngat_util_FileUtilities.h
